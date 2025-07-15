@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Project Portfolio API",
+    "description": "API untuk mengelola daftar proyek portofolio (CRUD)",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/api/projects": {
+      "get": {
+        "summary": "Ambil semua proyek",
+        "description": "Mengambil daftar semua proyek portofolio.",
+        "responses": {
+          "200": {
+            "description": "Daftar proyek",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 1,
+                    "name": "Website Toko Online",
+                    "description": "Membangun website e-commerce dengan Laravel dan Vue.js",
+                    "link": "https://contoh.com",
+                    "tech_stack": "Laravel, Vue.js, MySQL",
+                    "images": [
+                      "storage/projects/project1-1.jpg",
+                      "storage/projects/project1-2.jpg"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Buat proyek baru",
+        "description": "Menyimpan data proyek baru ke dalam database.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Portfolio App" },
+                  "description": { "type": "string" },
+                  "link": { "type": "string", "format": "uri" },
+                  "tech_stack": { "type": "string", "example": "Laravel, Vue.js" },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "Maksimal 10 gambar"
+                  }
+                },
+                "required": ["name", "description"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Proyek berhasil ditambahkan"
+          },
+          "422": {
+            "description": "Validasi gagal"
+          }
+        }
+      }
+    },
+    "/api/projects/{id}": {
+      "get": {
+        "summary": "Lihat detail proyek",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detail proyek"
+          },
+          "404": {
+            "description": "Proyek tidak ditemukan"
+          }
+        }
+      },
+      "put": {
+        "summary": "Perbarui proyek",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "description": { "type": "string" },
+                  "link": { "type": "string", "format": "uri" },
+                  "tech_stack": { "type": "string" },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proyek berhasil diperbarui"
+          },
+          "404": {
+            "description": "Proyek tidak ditemukan"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Hapus proyek",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proyek berhasil dihapus"
+          },
+          "404": {
+            "description": "Proyek tidak ditemukan"
+          }
+        }
+      }
+    }
+  }
+}

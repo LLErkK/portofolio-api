@@ -1,0 +1,128 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Experience API",
+    "description": "API untuk mengelola riwayat pengalaman kerja",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/api/experiences": {
+      "get": {
+        "summary": "Ambil semua riwayat kerja",
+        "responses": {
+          "200": {
+            "description": "Daftar riwayat pekerjaan",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 1,
+                    "company_name": "PT Teknologi Indonesia",
+                    "position": "Backend Developer",
+                    "start_date": "2022-01-01",
+                    "end_date": "2023-12-31",
+                    "description": "Membangun API dan sistem manajemen data"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Tambah riwayat pekerjaan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "company_name": { "type": "string" },
+                  "position": { "type": "string" },
+                  "start_date": { "type": "string", "format": "date" },
+                  "end_date": { "type": "string", "format": "date", "nullable": true },
+                  "description": { "type": "string" }
+                },
+                "required": ["company_name", "position", "start_date"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Riwayat kerja ditambahkan" },
+          "422": { "description": "Validasi gagal" }
+        }
+      }
+    },
+    "/api/experiences/{id}": {
+      "get": {
+        "summary": "Lihat detail pengalaman kerja",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Detail pengalaman kerja" },
+          "404": { "description": "Tidak ditemukan" }
+        }
+      },
+      "put": {
+        "summary": "Update pengalaman kerja",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "company_name": { "type": "string" },
+                  "position": { "type": "string" },
+                  "start_date": { "type": "string", "format": "date" },
+                  "end_date": { "type": "string", "format": "date", "nullable": true },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Berhasil diperbarui" },
+          "404": { "description": "Tidak ditemukan" }
+        }
+      },
+      "delete": {
+        "summary": "Hapus riwayat kerja",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Berhasil dihapus" },
+          "404": { "description": "Tidak ditemukan" }
+        }
+      }
+    }
+  }
+}

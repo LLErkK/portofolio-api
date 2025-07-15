@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Education API",
+    "description": "API untuk mengelola riwayat pendidikan",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/api/educations": {
+      "get": {
+        "summary": "Ambil semua riwayat pendidikan",
+        "responses": {
+          "200": {
+            "description": "List riwayat pendidikan",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 1,
+                    "school_name": "Universitas Indonesia",
+                    "start_year": "2019",
+                    "end_year": "2023",
+                    "address": "Depok, Jawa Barat"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Buat riwayat pendidikan baru",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "school_name": { "type": "string" },
+                  "start_year": { "type": "string", "example": "2019" },
+                  "end_year": { "type": "string", "example": "2023" },
+                  "address": { "type": "string" }
+                },
+                "required": ["school_name", "start_year", "end_year"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Riwayat pendidikan berhasil dibuat"
+          },
+          "422": {
+            "description": "Validasi gagal"
+          }
+        }
+      }
+    },
+    "/api/educations/{id}": {
+      "get": {
+        "summary": "Lihat detail riwayat pendidikan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data riwayat pendidikan"
+          },
+          "404": {
+            "description": "Data tidak ditemukan"
+          }
+        }
+      },
+      "put": {
+        "summary": "Perbarui riwayat pendidikan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "school_name": { "type": "string" },
+                  "start_year": { "type": "string" },
+                  "end_year": { "type": "string" },
+                  "address": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil diperbarui"
+          },
+          "404": {
+            "description": "Data tidak ditemukan"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Hapus riwayat pendidikan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil dihapus"
+          },
+          "404": {
+            "description": "Data tidak ditemukan"
+          }
+        }
+      }
+    }
+  }
+}
