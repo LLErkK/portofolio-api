@@ -1,0 +1,116 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Certificate API",
+    "version": "1.0.0",
+    "description": "API untuk mengelola data sertifikasi pengguna"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/api/certificates": {
+      "get": {
+        "summary": "List sertifikat",
+        "description": "Mengambil semua data sertifikat pengguna",
+        "responses": {
+          "200": {
+            "description": "Daftar sertifikat"
+          }
+        }
+      },
+      "post": {
+        "summary": "Tambah sertifikat",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+                "example": {
+                    "title":"Sertifikasi indomaret",
+                    "issuer":"alfamart",
+                    "year":"2004",
+                    "image":"path"
+                },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "issuer": { "type": "string" },
+                  "year": { "type": "integer", "format": "int32" },
+                  "image": { "type": "string", "format": "binary" }
+                },
+                "required": ["title", "issuer", "year", "image"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Sertifikat berhasil ditambahkan" }
+        }
+      }
+    },
+    "/api/certificates/{id}": {
+      "get": {
+        "summary": "Lihat sertifikat",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Detail sertifikat" },
+          "404": { "description": "Sertifikat tidak ditemukan" }
+        }
+      },
+      "put": {
+        "summary": "Update sertifikat",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "issuer": { "type": "string" },
+                  "year": { "type": "integer" },
+                  "image": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Sertifikat diperbarui" }
+        }
+      },
+      "delete": {
+        "summary": "Hapus sertifikat",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Sertifikat dihapus" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Profile API",
+    "version": "1.0.0",
+    "description": "API untuk mengupdate profil pengguna"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/api/profile": {
+      "get": {
+        "summary": "Ambil data profil",
+        "description": "Menampilkan data profil pengguna",
+        "responses": {
+          "200": {
+            "description": "Berhasil mengambil data profil"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update profil pengguna",
+        "description": "Mengupdate nama, bio, media sosial, dan foto profil pengguna",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "bio": {
+                    "type": "string"
+                  },
+                  "linkedin": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "github": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "website": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "photo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profil berhasil diperbarui"
+          },
+          "422": {
+            "description": "Validasi gagal"
+          }
+        }
+      }
+    }
+  }
+}
