@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name',100)->nullable(false);
-            $table->text('description');
-            $table->string('link',500);
-            $table->string('tech_stack');
-            $table->json('images');
+            $table->text('description')->nullable(true);
+            $table->string('link',500)->nullable(true);
+            $table->string('tech_stack')->nullable(true);
+            $table->json('images')->nullable(true);
             $table->unsignedBigInteger("user_id")->nullable(false);
             $table->timestamps();
 

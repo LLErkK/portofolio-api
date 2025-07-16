@@ -12,37 +12,39 @@ class ApiAuthMiddleware
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         $token = $request->header('Authorization');
-        $authenticate = true;
-        if(!$token){
-            $authenticate= false;
-        }
-        $user = User::where('token',$token)->first();
-        if(!$user){
-            $authenticate= false;
-        }else{
-            Auth::login($user);
+
+        if (!$token) {
+            return response()->json([
+                'errors' => [
+                    'message' => ['Unauthorized: No token provided.']
+                ]
+            ], 401);
         }
 
-      
-        
-        if($authenticate){
-            Auth::login($user);
-            return $next($request);
-        }else{
-            return Response()->json([
-                "errors"=>[
-                    "message"=>[
-                        "unauthorized"
-                    ]
+        $user = User::where('token', $token)->first();
+
+        if (!$user) {
+            return response()->json([
+                'errors' => [
+                    'message' => ['Unauthorized: Invalid token.']
                 ]
-            ])->setStatusCode(401);
+            ], 401);
         }
-        
+
+        // Login ke Auth system (opsional, untuk Auth::user())
+        Auth::login($user);
+
+        // Set user untuk $request->user()
+        $request->setUserResolver(function () use ($user) {
+            \Log::info('User from middleware', ['id' => $user->id]);
+
+            return $user;
+        });
+
+        return $next($request);
     }
 }

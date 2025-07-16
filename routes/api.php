@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
@@ -37,4 +39,16 @@ Route::middleware(ApiAuthMiddleware::class)->group(function(){
     Route::post('/project',[ProjectController::class,'store']);
     Route::patch('/project/{project}',[ProjectController::class,'update']);
     Route::delete('/project/{project}',[ProjectController::class,'destroy']);
+
+    //experience
+    Route::get('/experience',[ExperienceController::class,'get']);
+    Route::post('/experience',[ExperienceController::class,'store']);
+    Route::patch('/experience/{experience}',[ExperienceController::class,'update']);
+    Route::delete('/experience/{experience}',[ExperienceController::class,'destroy']);
+
+    //education
+    Route::get('/education',[EducationController::class,'get']);
+    Route::post('/education',[EducationController::class,'store']);
+    Route::patch('/education/{education}',[EducationController::class,'update']);
+    Route::delete('/education/{education}',[EducationController::class,'destroy']);
 });

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
-            $table->string("company_name");
-            $table->string("position");
-            $table->date("start_date");
+            $table->string("company_name")->nullable(false);
+            $table->string("position")->nullable(false);
+            $table->date("start_date")->nullable(false);
             $table->date("end_date")->nullable(true);
             $table->string("description")->nullable(true);
             $table->unsignedBigInteger("user_id")->nullable(false);

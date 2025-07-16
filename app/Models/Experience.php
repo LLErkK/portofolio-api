@@ -13,8 +13,17 @@ class Experience extends Model
     protected $primaryKey ="id";
     public $incrementing="true";
     public $timestamps="true";
-
+    protected $fillable=[
+        
+            'company_name',
+            'position' ,
+            'start_date' ,
+            'end_date' ,
+            'description',
+            'user_id' 
+            
+    ];
     public function user():BelongsTo{
-        return $this->belongsTo(Experience::class,"user_id","id");
+        return $this->belongsTo(User::class,"user_id","id");
     }
 }

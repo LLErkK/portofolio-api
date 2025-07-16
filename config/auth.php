@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+        'driver' => 'session', // atau bisa pakai token kalau kamu ubah sistem auth-nya
+        'provider' => 'users',
+    ],
     ],
 
     /*

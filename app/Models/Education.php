@@ -14,7 +14,14 @@ class Education extends Model
     public $incrementing="true";
     public $timestamps="true";
     
+    protected $fillable=[
+        'school_name',
+        'start_year',
+        'end_year',
+        'address',
+        'user_id'
+    ];
     public function user():BelongsTo{
-        return $this->belongsTo(Education::class,"user_id","id");
+        return $this->belongsTo(User::class,"user_id","id");
     }
 }

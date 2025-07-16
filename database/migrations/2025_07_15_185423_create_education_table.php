@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
-            $table->string("school_name");
-            $table->date("start_year");
-            $table->date("end_year")->nullable(false);
-            $table->string("address");
+            $table->string("school_name")->nullable(false);
+            $table->date("start_year")->nullable(false);
+            $table->date("end_year")->nullable(true);
+            $table->string("address")->nullable(true);
             $table->unsignedBigInteger("user_id");
             $table->timestamps();
 

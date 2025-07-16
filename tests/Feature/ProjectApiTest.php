@@ -111,7 +111,8 @@ class ProjectApiTest extends TestCase
             'name' => 'Updated Project',
             'description' => 'Updated Description',
             'link' => 'https://example.org',
-            'tech_stack' => 'Laravel, Vue.js'
+            'tech_stack' => 'Laravel, Vue.js',
+            'user_id'=>''
         ])
         ->assertJsonStructure([
             'data' => [
