@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ProfileController;
@@ -51,4 +52,10 @@ Route::middleware(ApiAuthMiddleware::class)->group(function(){
     Route::post('/education',[EducationController::class,'store']);
     Route::patch('/education/{education}',[EducationController::class,'update']);
     Route::delete('/education/{education}',[EducationController::class,'destroy']);
+
+    //certifikasi
+    Route::get('/certificate',[CertificateController::class,'get']);
+    Route::post('/certificate',[CertificateController::class,'store']);
+    Route::patch('/certificate/{certificate}',[CertificateController::class,'update']);
+    Route::delete('/certificate/{certificate}',[CertificateController::class,'destroy']);
 });

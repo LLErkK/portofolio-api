@@ -22,7 +22,7 @@ class ProjectResource extends JsonResource
             'link' => $this->link,
             'tech_stack' => $this->tech_stack,
             'images' => collect($this->images)->map(function ($imagePath) {
-                return Storage::url($imagePath); // ← Ubah path jadi URL publik
+                return Storage::url($imagePath); 
             }),
             'user_id'=>$this->user_id
         ];

@@ -13,8 +13,14 @@ class Certification extends Model
     protected $primaryKey ="id";
     public $incrementing="true";
     public $timestamps="true";
-
+    protected $fillable=[
+        'title',
+        'issuer',
+        'year',
+        'image',
+        'user_id'
+    ];
     public function user():BelongsTo{
-        return $this->belongsTo(Certification::class,"user_id","id");
+        return $this->belongsTo(User::class,"user_id","id");
     }
 }
