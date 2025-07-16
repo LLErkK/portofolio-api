@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Model implements Authenticatable
-{   
+{   use HasFactory;
     public function getAuthIdentifierName(){
         return 'username';
     }
@@ -70,6 +71,9 @@ class User extends Model implements Authenticatable
         'password',
         'name'
     ];
+    public function profile():BelongsTo{
+        return $this->belongsTo(Profile::class,"user_id","id");
+    }
     public function projects():HasMany{
         return $this->hasMany(Project::class,"user_id","id");
     }

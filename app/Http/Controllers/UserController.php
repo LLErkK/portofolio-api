@@ -62,4 +62,14 @@ class UserController extends Controller
         $user = Auth::user();
         return new Userresource($user);
     }
+    public function logout(Request $request): JsonResponse
+    {
+        $user = Auth::user();
+        $user->token = null;
+        $user->save();
+
+        return response()->json([
+            "data"=>true
+        ])->setStatusCode(200);
+    }
 }

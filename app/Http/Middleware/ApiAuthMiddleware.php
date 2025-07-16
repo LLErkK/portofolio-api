@@ -32,6 +32,7 @@ class ApiAuthMiddleware
       
         
         if($authenticate){
+            Auth::login($user);
             return $next($request);
         }else{
             return Response()->json([

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ApiAuthMiddleware;
 use Illuminate\Http\Request;
@@ -23,5 +25,16 @@ Route::post('/users',[UserController::class,'register']);
 Route::post('/users/login',[UserController::class,'login']);
 
 Route::middleware(ApiAuthMiddleware::class)->group(function(){
-    Route::get('users/current',[ UserController::class,'get']);
+    Route::get('/users/current',[ UserController::class,'get']);
+    Route::delete('/users/logout',[UserController::class,'logout']);
+    //profile
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::post('/profile', [ProfileController::class, 'store']);
+    Route::patch('/profile', [ProfileController::class, 'update']);
+
+    //project
+    Route::get('/project',[ProjectController::class,'get']);
+    Route::post('/project',[ProjectController::class,'store']);
+    Route::patch('/project/{project}',[ProjectController::class,'update']);
+    Route::delete('/project/{project}',[ProjectController::class,'destroy']);
 });

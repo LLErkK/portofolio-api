@@ -6,22 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Project extends Model
+class Profile extends Model
 {
-    protected $primaryKey ="id";
+    protected $table ="profiles";
+    protected $primaryKey = "id";
     protected $keyType ="int";
-    protected $table="Projects";
-    public $incrementing =true;
-    public $timestamps = true;
+    public $timestamps ="true";
+    public $incrementing = "true";
 
-    protected $fillable = [
-        'name',
-        'description',
-        'link',
-        'tech_stack',
-        'images'
-    ];
     public function user(): BelongsTo{
         return $this->belongsTo(User::class,"user_id","id");
     }
+    protected $fillable = [
+        'user_id',
+        'name',
+        'bio',
+        'linkedin',
+        'github',
+        'photo'
+    ];
 }
