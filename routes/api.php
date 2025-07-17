@@ -33,12 +33,13 @@ Route::middleware(ApiAuthMiddleware::class)->group(function(){
     //profile
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::post('/profile', [ProfileController::class, 'store']);
-    Route::patch('/profile', [ProfileController::class, 'update']);
+    Route::post('/profile/update', [ProfileController::class, 'update']);
 
     //project
     Route::get('/project',[ProjectController::class,'get']);
+    Route::get('/project/{project}',[ProjectController::class,'show']);
     Route::post('/project',[ProjectController::class,'store']);
-    Route::patch('/project/{project}',[ProjectController::class,'update']);
+    Route::post('/project/{project}',[ProjectController::class,'update']);
     Route::delete('/project/{project}',[ProjectController::class,'destroy']);
 
     //experience
