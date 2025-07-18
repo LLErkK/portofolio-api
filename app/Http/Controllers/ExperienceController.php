@@ -23,7 +23,7 @@ class ExperienceController extends Controller
         $data= $request->validated();
 
         $data['user_id'] = $request->user()->id;
-
+        //variable    objek       method, bisa get atau create
         $experience = Experience::create($data);
         return new ExperienceResource($experience);
     }

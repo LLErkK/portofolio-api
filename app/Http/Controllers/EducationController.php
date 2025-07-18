@@ -13,6 +13,11 @@ class EducationController extends Controller
         $educations = Education::all();
         return EducationResource::collection($educations);
     }
+    public function show($id)
+    {
+        $education = Education::findOrFail($id);
+        return new EducationResource($education);
+    }
 
     public function store(UpdateEducationRequest $request){
         $data = $request->validated();
@@ -28,8 +33,9 @@ class EducationController extends Controller
         return new EducationResource($education);
     }
 
-    public function destroy(UpdateEducationRequest $request,$id){
+    public function destroy($id){
         $education = Education::findOrFail($id);
+        
         $education->delete();
         return response()->json([
             'message' => 'Education deleted successfully'

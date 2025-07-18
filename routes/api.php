@@ -51,13 +51,15 @@ Route::middleware(ApiAuthMiddleware::class)->group(function(){
 
     //education
     Route::get('/education',[EducationController::class,'get']);
+    Route::get('education/{education}',[EducationController::class,'show']);
     Route::post('/education',[EducationController::class,'store']);
     Route::patch('/education/{education}',[EducationController::class,'update']);
     Route::delete('/education/{education}',[EducationController::class,'destroy']);
 
     //certifikasi
     Route::get('/certificate',[CertificateController::class,'get']);
+    Route::get('/certificate/{certificate}',[CertificateController::class,'show']);
     Route::post('/certificate',[CertificateController::class,'store']);
-    Route::patch('/certificate/{certificate}',[CertificateController::class,'update']);
+    Route::post('/certificate/{certificate}',[CertificateController::class,'update']);
     Route::delete('/certificate/{certificate}',[CertificateController::class,'destroy']);
 });
