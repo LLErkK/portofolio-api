@@ -14,6 +14,11 @@ class ExperienceController extends Controller
         return ExperienceResource::collection($experiences);
     }
 
+    public function show($id){
+        $experience = Experience::findOrFail($id);
+        return new ExperienceResource($experience);
+    }
+
     public function store(UpdateExperienceRequest $request){
         $data= $request->validated();
 

@@ -44,6 +44,7 @@ Route::middleware(ApiAuthMiddleware::class)->group(function(){
 
     //experience
     Route::get('/experience',[ExperienceController::class,'get']);
+    Route::get('/experience/{experience}',[ExperienceController::class,'show']);
     Route::post('/experience',[ExperienceController::class,'store']);
     Route::patch('/experience/{experience}',[ExperienceController::class,'update']);
     Route::delete('/experience/{experience}',[ExperienceController::class,'destroy']);
