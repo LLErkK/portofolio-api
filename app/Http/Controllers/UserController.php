@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\Userresource;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
@@ -36,6 +37,11 @@ class UserController extends Controller
         $user = new User($data);
         $user->password =Hash::make($data['password']);
         $user->save();
+
+        Profile::create([
+            'name' => $user->name,
+            'user_id'=>$user->id
+        ]);
 
         return (new Userresource($user)->response()->setStatusCode(201));
     }

@@ -21,7 +21,8 @@ class Profileresource extends JsonResource
             'linkedin'=>$this->whenNotNull($this->linkedin),
             'github'=>$this->whenNotNull($this->github),
             'photo'=>$this->whenNotNull($this->photo),
-            'token'=> $this->whenNotNull($this->token)
+            'token'=> $this->whenNotNull($this->token),
+            'user_id'=> $this->user_id
         ];
     }
 }
